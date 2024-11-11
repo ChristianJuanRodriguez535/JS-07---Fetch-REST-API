@@ -1,0 +1,53 @@
+//& función llamada orderBurger que recibe un argumento burgerTyper (tipo de hamburguesa).
+
+
+function orderBurger(burgerTyper) {
+
+
+    //* función devuelve una nueva Promise, que es un objeto que representa la finalización (o el fracaso) de una operación asíncrona.
+
+    return new Promise((resolve, reject) => {
+
+    //^resolve (para indicar que la operación fue exitosa) y reject (para indicar que falló).
+    
+        console.log(`Starting order: ${burgerTyper}, burger`);
+
+        setTimeout(() => {
+        
+            //& setTimeout para simular un retraso de 2 segundos (2000 milisegundos) antes de que la hamburguesa esté lista.
+
+        console.log(`Order: ${burgerTyper}, burger is ready`);
+         
+        resolve(burgerTyper);
+
+        }, 2000);
+
+    })
+}
+
+console.log("Order placed");
+orderBurger("Double western bacon").then(res => console.log(res)).catch((err)=> console.assert(err));
+
+
+//todo Resumen del flujo de ejecución:
+// *Se imprime Order placed.
+//&Se ejecuta orderBurger("Double western bacon"), imprimiendo Starting order: Double western bacon, burger.
+//? Después de 2 segundos, se imprime Order: Double western bacon, burger is ready.
+//!La promesa se resuelve y pasa el valor Double western bacon al .then(), que imprime Double western bacon.
+//*Este código simula un proceso de pedido de una hamburguesa de manera asíncrona, mostrando cómo se puede usar una promesa para manejar un retraso en la ejecución.
+
+
+async function orderAndServe(burgerTyper) {
+    
+    try { 
+
+        const burger = await new Promise ((res, rej) => res(burgerTyper));
+        console.log(`Here´s your order: ${burger}`);
+        
+    } catch (err) {
+
+        console.error(err)
+    }
+}
+
+orderAndServe("Portobello burger ");
